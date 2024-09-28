@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name=_('Nom'))
 
@@ -23,7 +24,6 @@ class Region(models.Model):
         return self.name
 
 
-
 class Article(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))
     image = models.ImageField(upload_to='images/', verbose_name=_('Rasm'))
@@ -31,6 +31,7 @@ class Article(models.Model):
     content = models.TextField(verbose_name=_('Batafsil'))
     views = models.IntegerField(default=0, verbose_name=_("Ko'rish soni"))
     publish = models.BooleanField(default=True, verbose_name=_('Chop etish'))
+    news_of_the_day = models.BooleanField(default=False, verbose_name=_('Kun yangiligi'))
 
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     region = models.ForeignKey(Region, verbose_name=_('Joy'), on_delete=models.SET_NULL, null=True, blank=True)
@@ -42,6 +43,11 @@ class Article(models.Model):
     class Meta:
         verbose_name = _('Maqola')
         verbose_name_plural = _('Maqolalar')
+
+    def save(self, *args, **kwargs):
+        if self.news_of_the_day:
+            Article.objects.filter(news_of_the_day=True).update(news_of_the_day=False)
+        super(Article, self).save(*args, **kwargs)
 
 
 class Video(models.Model):

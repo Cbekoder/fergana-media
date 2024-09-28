@@ -36,6 +36,7 @@ urlpatterns = [
     path('categories/', CategoryListAPIView.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryRetrieveAPIView.as_view(), name='category-retrieve'),
     path('articles/', ArticleListAPIView.as_view(), name='article-list'),
+    path('articles-top/', TopArticlesListAPIView.as_view(), name='article-top-list'),
     path('articles/<int:pk>/', ArticleRetrieveAPIView.as_view(), name='article-retrieve'),
     path('videos/', VideoListAPIView.as_view(), name='video-list'),
     path('videos/<int:pk>/', VideoRetrieveAPIView.as_view(), name='video-retrieve'),

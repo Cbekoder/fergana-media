@@ -4,6 +4,9 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
+from django.utils import timezone
+from datetime import timedelta
+
 from .filters import ArticleFilter, VideoFilter
 from .serializers import *
 
@@ -47,6 +50,23 @@ class ArticleListAPIView(ListAPIView):
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+
+
+class TopArticlesListAPIView(ListAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+    # def get_queryset(self):
+    #     top_news = self.queryset.filter(news_of_the_day=True).order_by('-id')
+    #     other_news = self.queryset.filter(news_of_the_day=False).order_by('-views')
+    #     return list(top_news) + list(other_news)[:40 - len(top_news)]
+
+    def get_queryset(self):
+        last_10_days = timezone.now() - timedelta(days=10)
+        top_news = self.queryset.filter(news_of_the_day=True, created_at__gte=last_10_days).order_by('-id')
+        other_news = self.queryset.filter(news_of_the_day=False, created_at__gte=last_10_days).order_by('-views')
+        return list(top_news) + list(other_news)[:40 - len(top_news)]
+
 
 
 class ArticleRetrieveAPIView(RetrieveAPIView):

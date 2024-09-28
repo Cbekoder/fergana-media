@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^@pim)i==9@$poj1o7)+l)sxxk1401%!a9+z_c0p$)vlo^lbmf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'main',
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -93,6 +94,7 @@ JAZZMIN_SETTINGS = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,6 +102,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ["*"]
+
 
 ROOT_URLCONF = 'ferghana_media.urls'
 
@@ -155,7 +161,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'uz-Latn'
 
-
 LANGUAGES = [
     ('uz-Latn', 'O‘zbekcha (Lotin)'),  # Bu yerda 'uz_Latn' emas, 'uz-Latn' bo'lishi kerak
     ('uz-Cyrl', 'Ўзбекча (Кирилл)'),  # 'uz_Cyrl' emas, 'uz-Cyrl' ishlatamiz
@@ -163,11 +168,9 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
-
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
-
 
 TIME_ZONE = 'Asia/Tashkent'
 
