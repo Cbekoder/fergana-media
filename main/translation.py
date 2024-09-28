@@ -1,4 +1,4 @@
-from .models import Category, Article, Video
+from .models import Category, Article, Video, Region, Ad
 from modeltranslation.translator import TranslationOptions, register
 
 @register(Category)
@@ -13,3 +13,11 @@ class ArticleTranslationOptions(TranslationOptions):
 @register(Video)
 class VideoTranslationOptions(TranslationOptions):
     fields = ('title', 'intro',)
+
+@register(Region)
+class RegionTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+@register(Ad)
+class AdTranslationOptions(TranslationOptions):
+    fields = ('title',)

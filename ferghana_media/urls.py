@@ -25,12 +25,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('', admin.site.urls),
-
-    path('set_language/', set_language, name='set_language'),
+    path('admin/', admin.site.urls),
 
     # Swagger
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0)),
+    path('', schema_view.with_ui('swagger', cache_timeout=0)),
+
+    path('set_language/', set_language, name='set_language'),
 
     # main
     path('categories/', CategoryListAPIView.as_view(), name='category-list'),
@@ -39,8 +39,11 @@ urlpatterns = [
     path('articles/<int:pk>/', ArticleRetrieveAPIView.as_view(), name='article-retrieve'),
     path('videos/', VideoListAPIView.as_view(), name='video-list'),
     path('videos/<int:pk>/', VideoRetrieveAPIView.as_view(), name='video-retrieve'),
+    path('ads/', AdListAPIView.as_view(), name='ad-list'),
+    path('ads/<int:pk>/', AdRetrieveAPIView.as_view(), name='ad-retrieve'),
+
 ]
 
-urlpatterns = [
+urlpatterns += [
     *i18n_patterns(*urlpatterns, prefix_default_language=False),
 ]

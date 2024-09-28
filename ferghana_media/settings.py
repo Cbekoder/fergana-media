@@ -34,6 +34,14 @@ INSTALLED_APPS = [
     'drf_yasg',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'ferghana_media.paginations.CustomPagination',
+    'PAGE_SIZE': 10,
+
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+}
+
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Fergana Media Admin",
@@ -45,19 +53,19 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Fergana Media",
 
     # Logo to use for your images, must be present in static files, used for brand on top left
-    "site_logo": "images/logo.png",
+    # "site_logo": "images/logo.png",
 
     # Logo to use for your images, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "images/logo.png",
+    # "login_logo": "images/logo.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": "images/logo.png",
+    # "login_logo_dark": "images/logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
 
     # Relative path to a favicon for your images, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": "images/logo.svg",
+    "site_icon": "images/logo.png",
 
     # Welcome text on the login screen
     "welcome_sign": "Welcome to the Fergana Media Admin!",
@@ -66,7 +74,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "Created by Fassco",
 
     # Whether to show the UI customizer on the sidebar
-    "show_ui_builder": True,
+    "show_ui_builder": False,
 
     ###############
     # Change view #
@@ -77,20 +85,20 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    # "changeform_format": "horizontal_tabs",
     # Add a language dropdown into the admin
-    "language_chooser": True,
+    "language_chooser": False,
 }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'ferghana_media.urls'
@@ -145,27 +153,29 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz-Latn'
+
 
 LANGUAGES = [
-    ('en-us', 'English'),
-    ('uz-Latn', 'Latin'),
-    ('uz-Cyrl', 'Cyril'),
-    ('ru', 'Russian'),
+    ('uz-Latn', 'O‘zbekcha (Lotin)'),  # Bu yerda 'uz_Latn' emas, 'uz-Latn' bo'lishi kerak
+    ('uz-Cyrl', 'Ўзбекча (Кирилл)'),  # 'uz_Cyrl' emas, 'uz-Cyrl' ishlatamiz
+    ('ru', 'Русский'),
+    ('en', 'English'),
 ]
+
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
+
 TIME_ZONE = 'Asia/Tashkent'
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-us'
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz-Latn'  # 'uz_Latn' emas, 'uz-Latn'
 MODELTRANSLATION_LANGUAGES = ('en-us', 'uz-Latn', 'uz-Cyrl', 'ru')
 
 USE_I18N = True
 USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -185,3 +195,36 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-danger",
+    "accent": "accent-danger",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-danger",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": True,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}
