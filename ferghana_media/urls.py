@@ -9,6 +9,11 @@ from drf_yasg import openapi
 
 from django.conf.urls.i18n import i18n_patterns
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 from main.views import *
 
 schema_view = get_schema_view(
@@ -25,6 +30,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
 
     # Swagger
