@@ -6,3 +6,5 @@ class MainConfig(AppConfig):
     name = 'main'
 
     verbose_name = _('Yangiliklar')
+    def ready(self):
+        import main.signals

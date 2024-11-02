@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.conf.urls.i18n import set_language
 
 from rest_framework import permissions
@@ -50,7 +51,8 @@ urlpatterns = [
     path('ads/', AdListAPIView.as_view(), name='ad-list'),
     path('ads/<int:pk>/', AdRetrieveAPIView.as_view(), name='ad-retrieve'),
     path('staff/', StaffListAPIView.as_view(), name='staff-list'),
-]
+    path('staff/photos/', StaffPhotoListAPIView.as_view(), name='staff-photo-list')
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     *i18n_patterns(*urlpatterns, prefix_default_language=False),

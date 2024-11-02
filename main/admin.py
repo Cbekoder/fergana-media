@@ -75,7 +75,7 @@ class AdAdmin(CustomTranslationAdmin):
 # admin.site.register(Category, CategoryAdmin)
 
 @admin.register(Staff)
-class StaffAdmin(admin.ModelAdmin):
+class StaffAdmin(TranslationAdmin):
     list_display = ('first_name', 'last_name', 'position', 'licence_no')
     search_fields = ('first_name', 'last_name', 'position', 'licence_no')
     list_filter = ('position',)

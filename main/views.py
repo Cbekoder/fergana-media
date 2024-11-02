@@ -7,6 +7,8 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from django.utils import timezone
 from datetime import timedelta
 
+from rest_framework.response import Response
+
 from .filters import ArticleFilter, VideoFilter
 from .serializers import *
 
@@ -102,3 +104,12 @@ class AdRetrieveAPIView(RetrieveAPIView):
 class StaffListAPIView(ListAPIView):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
+
+
+class StaffPhotoListAPIView(ListAPIView):
+    queryset = Staff.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        photos = [staff.photo.url for staff in queryset if staff.photo]
+        return Response(photos)
