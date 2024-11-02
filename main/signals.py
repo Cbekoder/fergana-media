@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from .models import Article
 from .utils import sendArticle
 
+
 @receiver(post_save, sender=Article)
 def send_article_photo(sender, instance, created, **kwargs):
     if created and instance.message_id is None:
