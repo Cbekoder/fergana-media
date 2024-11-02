@@ -24,3 +24,10 @@ class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
         fields = '__all__'
+
+
+class StaffSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Staff
+        fields = ['id', 'first_name', 'last_name', 'photo', 'position', 'licence_no']
+

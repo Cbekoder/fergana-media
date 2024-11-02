@@ -49,7 +49,7 @@ urlpatterns = [
     path('videos/<int:pk>/', VideoRetrieveAPIView.as_view(), name='video-retrieve'),
     path('ads/', AdListAPIView.as_view(), name='ad-list'),
     path('ads/<int:pk>/', AdRetrieveAPIView.as_view(), name='ad-retrieve'),
-
+    path('staff/', StaffListAPIView.as_view(), name='staff-list'),
 ]
 
 urlpatterns += [

@@ -97,3 +97,8 @@ class AdListAPIView(ListAPIView):
 class AdRetrieveAPIView(RetrieveAPIView):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+
+
+class StaffListAPIView(ListAPIView):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
