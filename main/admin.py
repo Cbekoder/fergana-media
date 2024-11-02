@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import User, Group
 from django.db.models import Model
 from modeltranslation.admin import TranslationAdmin
-from .models import Category, Article, Video, Region, Ad
+from .models import Category, Article, Video, Region, Ad, Staff
 
 admin.site.unregister([User, Group])
 
@@ -73,3 +73,9 @@ class AdAdmin(CustomTranslationAdmin):
 
 
 # admin.site.register(Category, CategoryAdmin)
+
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'position', 'licence_no')
+    search_fields = ('first_name', 'last_name', 'position', 'licence_no')
+    list_filter = ('position',)

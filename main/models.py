@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .utils import sendArticle
 
 
 class Category(models.Model):
@@ -36,6 +37,7 @@ class Article(models.Model):
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     region = models.ForeignKey(Region, verbose_name=_('Joy'), on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
+    message_id = models.IntegerField(null=True, blank=True, verbose_name=_("Qo'shilgan sana"))
 
     def __str__(self):
         return self.title
@@ -47,6 +49,7 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         if self.news_of_the_day:
             Article.objects.filter(news_of_the_day=True).update(news_of_the_day=False)
+
         super(Article, self).save(*args, **kwargs)
 
 
@@ -78,3 +81,18 @@ class Ad(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Staff(models.Model):
+    first_name = models.CharField(max_length=100, verbose_name=_('Ism'), null=True, blank=True)
+    last_name = models.CharField(max_length=100, verbose_name=_('Familya'), null=True, blank=True)
+    photo = models.ImageField(upload_to='staff/', verbose_name=_('Rasm'), blank=True, null=True,)
+    position = models.CharField(max_length=100, verbose_name=_('Lavozim'), null=True, blank=True)
+    licence_no = models.SmallIntegerField(verbose_name=_('Guvohnoma raqami'), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Hodim ')
+        verbose_name_plural = _('Hodimlar')
+
+    def __str__(self):
+        return self.id
