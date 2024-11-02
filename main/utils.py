@@ -19,9 +19,9 @@ def sendArticle(message_id, title, intro, image, categories, region, news_of_the
     resized_photo_path = os.path.abspath('../fergana-media/media/images/resized.png')
     resize_image(photo_path, resized_photo_path)
 
-    caption = (f"{title}\n\n{intro}\n"
-                   f"<a href='https://youtube.com'>Batafsil...</a>\n\n"
-               f"#{region} {' '.join(f"#{category}" for category in tuple(categories))}")
+    caption = f"""{title}\n\n{intro}\n
+<a href='https://youtube.com'>Batafsil...</a>\n\n
+#{region} {' '.join(f"#{category}" for category in tuple(categories))}"""
 
     inline_keyboard = {
         "inline_keyboard": [
