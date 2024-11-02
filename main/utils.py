@@ -11,7 +11,7 @@ def resize_image(image_path, output_path, max_size=(1024, 1024)):
         img.save(output_path)
 
 
-def sendArticle(message_id, title, intro, image, categories, region, news_of_the_day):
+def sendArticle(id, message_id, title, intro, image, categories, region, news_of_the_day):
     bot_token = '7488996758:AAHBX_g4Kb-xKkx1Lmm-Wxv5GpLU_PF9xLA'
     chat_id = '-1002323211510'
 
@@ -20,7 +20,7 @@ def sendArticle(message_id, title, intro, image, categories, region, news_of_the
     resize_image(photo_path, resized_photo_path)
 
     caption = f"""{title}\n\n{intro}\n
-<a href='https://youtube.com'>Batafsil...</a>\n\n
+<a href='https://fergana-media.vercel.app/news/{id}'>Batafsil...</a>\n\n
 #{region} {' '.join(f"#{category}" for category in tuple(categories))}"""
 
     inline_keyboard = {

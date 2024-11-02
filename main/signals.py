@@ -8,6 +8,7 @@ from .utils import sendArticle
 def send_article_photo(sender, instance, created, **kwargs):
     if created and instance.message_id is None:
         response = sendArticle(
+            instance.id,
             None,
             instance.title,
             instance.intro,
@@ -20,6 +21,7 @@ def send_article_photo(sender, instance, created, **kwargs):
         instance.save()
     else:
         sendArticle(
+            instance.id,
             instance.message_id,
             instance.title,
             instance.intro,
