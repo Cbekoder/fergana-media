@@ -188,7 +188,7 @@ LANGUAGE_CODE = 'uz-Latn'
 
 LANGUAGES = [
     ('uz-Latn', 'O‘zbekcha (Lotin)'),  # Bu yerda 'uz_Latn' emas, 'uz-Latn' bo'lishi kerak
-    ('uz-Cyrl', 'Ўзбекча (Кирилл)'),  # 'uz_Cyrl' emas, 'uz-Cyrl' ishlatamiz
+    # ('uz-Cyrl', 'Ўзбекча (Кирилл)'),  # 'uz_Cyrl' emas, 'uz-Cyrl' ishlatamiz
     ('ru', 'Русский'),
     ('en', 'English'),
 ]
@@ -200,7 +200,8 @@ LOCALE_PATHS = [
 TIME_ZONE = 'Asia/Tashkent'
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz-Latn'  # 'uz_Latn' emas, 'uz-Latn'
-MODELTRANSLATION_LANGUAGES = ('en-us', 'uz-Latn', 'uz-Cyrl', 'ru')
+# MODELTRANSLATION_LANGUAGES = ('en-us', 'uz-Latn', 'uz-Cyrl', 'ru')
+MODELTRANSLATION_LANGUAGES = ('en-us', 'uz-Latn', 'ru')
 
 USE_I18N = True
 USE_L10N = True

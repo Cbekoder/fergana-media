@@ -6,7 +6,11 @@ from .utils import sendArticle
 
 @receiver(post_save, sender=Article)
 def send_article_photo(sender, instance, created, **kwargs):
-    if created and instance.message_id is None:
+    if instance.region:
+        region = instance.region.name
+    else:
+        region = None
+    if instance.message_id is None:
         response = sendArticle(
             instance.id,
             None,
@@ -14,11 +18,14 @@ def send_article_photo(sender, instance, created, **kwargs):
             instance.intro,
             instance.image.path,
             instance.categories.values_list('title', flat=True),
-            instance.region.name,
+            region,
             instance.news_of_the_day,
         )
-        instance.message_id = response['result']['message_id']
-        instance.save()
+        if response:
+            instance.message_id = response['result']['message_id']
+            instance.save()
+        else:
+            print("error in bot")
     else:
         sendArticle(
             instance.id,
@@ -27,6 +34,6 @@ def send_article_photo(sender, instance, created, **kwargs):
             instance.intro,
             instance.image.path,
             instance.categories.values_list('title', flat=True),
-            instance.region.name,
+            region,
             instance.news_of_the_day,
         )

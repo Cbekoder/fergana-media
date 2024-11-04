@@ -21,7 +21,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
 
     caption = f"""{title}\n\n{intro}\n
 <a href='https://fergana-media.vercel.app/news/{id}'>Batafsil...</a>\n\n
-#{region} {' '.join(f"#{category}" for category in tuple(categories))}"""
+{f"#{region} " if region else ""}{' '.join(f"#{category}" for category in tuple(categories))}"""
 
     inline_keyboard = {
         "inline_keyboard": [
@@ -33,13 +33,18 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
             ]
         ]
     }
-    print(categories)
     payload = {
         'chat_id': chat_id,
         'reply_markup': json.dumps(inline_keyboard)
     }
-
-    if message_id is not None:
+    print(message_id)
+    if message_id is None:
+        telegram_url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
+        payload.update({
+            'caption': caption,
+            'parse_mode': 'HTML'
+        })
+    else:
         telegram_url = f"https://api.telegram.org/bot{bot_token}/editMessageMedia"
         new_image = {
             "type": "photo",
@@ -51,12 +56,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
             'message_id': message_id,
             "media": json.dumps(new_image)
         })
-    else:
-        telegram_url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
-        payload.update({
-            'caption': caption,
-            'parse_mode': 'HTML'
-        })
+
 
     with open(resized_photo_path, 'rb') as photo:
         files = {
@@ -68,6 +68,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
         os.remove(resized_photo_path)
 
     if response.status_code == 200:
+        print(response.json())
         return response.json()
     else:
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")
