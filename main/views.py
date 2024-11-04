@@ -108,6 +108,7 @@ class StaffListAPIView(ListAPIView):
 
 class StaffPhotoListAPIView(ListAPIView):
     queryset = Staff.objects.all()
+    serializer_class = StaffPhotoSerializer
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()

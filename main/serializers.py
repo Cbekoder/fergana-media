@@ -31,3 +31,8 @@ class StaffSerializer(serializers.ModelSerializer):
         model = Staff
         fields = ['id', 'first_name', 'last_name', 'photo', 'position', 'licence_no']
 
+class StaffPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Staff
+        fields = ['photo']
+
