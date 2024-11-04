@@ -16,7 +16,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
     chat_id = '-1002323211510'
 
     photo_path = os.path.abspath(image)
-    resized_photo_path = os.path.abspath('../fergana-media/media/images/resized.png')
+    resized_photo_path = os.path.abspath('resized.png')
     resize_image(photo_path, resized_photo_path)
 
     caption = f"""{title}\n\n{intro}\n
