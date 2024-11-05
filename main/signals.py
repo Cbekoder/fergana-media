@@ -10,7 +10,7 @@ def send_article_photo(sender, instance, created, **kwargs):
         region = instance.region.name
     else:
         region = None
-    if instance.to_send_bot:
+    if instance.to_send_bot and instance.publish:
         if instance.message_id is None:
             response = sendArticle(
                 instance.id,
@@ -45,7 +45,7 @@ def send_video_photo(sender, instance, created, **kwargs):
         cover = instance.cover.path
     else:
         cover = None
-    if instance.to_send_bot:
+    if instance.to_send_bot and instance.publish:
         if instance.message_id is None:
             response = sendVideo(
                 None,

@@ -38,7 +38,7 @@ class ArticleListAPIView(ListAPIView):
     search_fields = ('title', 'intro')
 
     def get_queryset(self):
-        return self.queryset.order_by('-id')
+        return self.queryset.filter(publish=True).order_by('-id')
 
     @swagger_auto_schema(
         manual_parameters=[
