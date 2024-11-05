@@ -65,12 +65,12 @@ class VideoAdmin(CustomTranslationAdmin):
     ordering = ('title', 'created_at')
 
 
-@admin.register(Ad)
-class AdAdmin(CustomTranslationAdmin):
-    list_display = ('title', )
-    list_display_links = ('title',)
-    search_fields = ('title',)
-    ordering = ('title',)
+# @admin.register(Ad)
+# class AdAdmin(CustomTranslationAdmin):
+#     list_display = ('title', )
+#     list_display_links = ('title',)
+#     search_fields = ('title',)
+#     ordering = ('title',)
 
 
 # admin.site.register(Category, CategoryAdmin)
