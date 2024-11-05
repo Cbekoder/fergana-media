@@ -63,7 +63,7 @@ class VideoAdmin(CustomTranslationAdmin):
 
     search_fields = ('title', 'categories__title')
     ordering = ('title', 'created_at')
-
+    readonly_fields = ['message_id', 'created_at']
 
 # @admin.register(Ad)
 # class AdAdmin(CustomTranslationAdmin):

@@ -59,6 +59,8 @@ class Video(models.Model):
     intro = models.TextField(verbose_name=_('Kirish matni'))
     cover = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_('Rasm'))
     url = models.URLField(verbose_name=_('Link'))
+    to_send_bot = models.BooleanField(default=True, verbose_name=_("Telegram kanalga yuborish"))
+    message_id = models.IntegerField(null=True, blank=True, verbose_name=_("Telegram Message Id"))
 
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
