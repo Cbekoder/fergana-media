@@ -20,24 +20,13 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
     resize_image(photo_path, resized_photo_path)
 
     caption = f"""{title}\n\n{intro}\n
-<a href='https://fergana-media.vercel.app/news/{id}'>Batafsil...</a>\n\n
-{f"#{region} " if region else ""}{' '.join(f"#{category}" for category in tuple(categories))}"""
+<a href='https://fergana-media.vercel.app/news/{id}/?type=world'>Batafsil...</a>\n\n
+{f"#{region} " if region else ""}{' '.join(f"#{category}" for category in tuple(categories))}\n\n@ferganamedia"""
 
-    inline_keyboard = {
-        "inline_keyboard": [
-            [
-                {
-                    "text": "Ko'proq",
-                    "url": "https://fergana-media.vercel.app/"  # Replace with your actual link
-                }
-            ]
-        ]
-    }
     payload = {
         'chat_id': chat_id,
-        'reply_markup': json.dumps(inline_keyboard)
     }
-    print(message_id)
+
     if message_id is None:
         telegram_url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
         payload.update({
@@ -68,7 +57,6 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
         os.remove(resized_photo_path)
 
     if response.status_code == 200:
-        print(response.json())
         return response.json()
     else:
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")

@@ -43,6 +43,7 @@ class ArticleAdmin(CustomTranslationAdmin):
     list_filter = ('publish',)
     date_hierarchy = 'created_at'
     ordering = ('title', 'views', 'created_at')
+    readonly_fields = ('message_id', 'created_at')
 
     # class Media:
     #     js = (

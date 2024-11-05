@@ -37,6 +37,7 @@ class Article(models.Model):
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     region = models.ForeignKey(Region, verbose_name=_('Joy'), on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
+    to_send_bot = models.BooleanField(default=True, verbose_name=_("Telegram kanalga yuborish"))
     message_id = models.IntegerField(null=True, blank=True, verbose_name=_("Telegram Message Id"))
 
     def __str__(self):
