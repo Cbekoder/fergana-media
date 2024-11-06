@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .utils import sendArticle
+from .utils import delete_message
 
 
 class Category(models.Model):
@@ -73,6 +73,11 @@ class BotMessageIDs(models.Model):
     video = models.OneToOneField(Video, on_delete=models.CASCADE, null=True, unique=True, verbose_name=_('Article'))
     message_id = models.IntegerField(verbose_name=_("Telegram Message Id"))
 
+    def delete(self, *args, **kwargs):
+        if self.message_id:
+            delete_message(self.message_id)
+
+        super().delete(*args, **kwargs)
 
 class Ad(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))

@@ -74,6 +74,6 @@ def send_video_photo(sender, instance, created, **kwargs):
                 instance.url
             )
     else:
-        if message.message_id:
+        if message:
             delete_message(message.message_id)
             message.delete()
