@@ -1,4 +1,4 @@
-from .models import Category, Article, Video, Region, Ad, Staff
+from .models import Category, Article, Video, Region, Ad, Staff, Credentials
 from modeltranslation.translator import TranslationOptions, register
 
 @register(Category)
@@ -24,3 +24,7 @@ class AdTranslationOptions(TranslationOptions):
 @register(Staff)
 class StaffTranslationOptions(TranslationOptions):
     fields = ('first_name', 'last_name', 'position')
+
+@register(Credentials)
+class CredentialsTranslationOptions(TranslationOptions):
+    fields = ('test_mode_info', 'address')

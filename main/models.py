@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .utils import delete_message
+from rest_framework.exceptions import ValidationError
 
 
 class Category(models.Model):
@@ -73,11 +73,6 @@ class BotMessageIDs(models.Model):
     video = models.OneToOneField(Video, on_delete=models.CASCADE, null=True, unique=True, verbose_name=_('Article'))
     message_id = models.IntegerField(verbose_name=_("Telegram Message Id"))
 
-    def delete(self, *args, **kwargs):
-        if self.message_id:
-            delete_message(self.message_id)
-
-        super().delete(*args, **kwargs)
 
 class Ad(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))
@@ -105,3 +100,31 @@ class Staff(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Credentials(models.Model):
+    botToken = models.CharField(max_length=255, verbose_name=_('Telegram Token'))
+    channel_id = models.CharField(max_length=255, verbose_name=_('Channel'))
+    is_test_mode = models.BooleanField(default=False, verbose_name=_('Test mode'))
+    test_mode_info = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Test mode info'))
+    phone = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Telephone Number'))
+    email = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Email'))
+    domain = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Domen'))
+    instagram = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Instagram'))
+    telegram = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Telegram'))
+    youtube = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('YouTube'))
+    facebook = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Facebook'))
+    address = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Address'))
+
+    class Mete:
+        verbose_name = _('Sayt haqida')
+        verbose_name_plural = _('Sayt haqida')
+
+    def __str__(self):
+        return "Sayt haqida"
+
+    def save(self, *args, **kwargs):
+        if Credentials.objects.exists() and not self.pk:
+            raise ValidationError(_("Only one Credentials instance is allowed."))
+        super().save(*args, **kwargs)
+

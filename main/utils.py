@@ -1,12 +1,15 @@
 import json
-
 import requests
 from PIL import Image
 import os
+from .models import Credentials
 
-bot_token = '7488996758:AAHBX_g4Kb-xKkx1Lmm-Wxv5GpLU_PF9xLA'
-chat_id = '-1002323211510'
-
+credentials = Credentials.objects.last()
+if credentials:
+    bot_token = credentials.botToken
+    chat_id = credentials.channel_id
+    domain = credentials.domain
+    tgChannel = credentials.telegram
 
 def resize_image(image_path, output_path, max_size=(1024, 1024)):
     with Image.open(image_path) as img:
@@ -20,8 +23,8 @@ def sendArticle(id, message_id, title, intro, image):
     resize_image(photo_path, resized_photo_path)
 
     caption = f"""{title}\n\n{intro}
-<a href='https://fergana-media.vercel.app/news/{id}/?type=world'>Batafsil...</a>\n
-@ferganamedia"""
+<a href='https://{domain}/news/{id}/?type=world'>Batafsil...</a>\n
+{tgChannel}"""
 
     payload = {
         'chat_id': chat_id,

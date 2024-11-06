@@ -1,6 +1,6 @@
 from pyexpat.errors import messages
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import Article, Video, BotMessageIDs
 from .utils import sendArticle, sendVideo, delete_message
@@ -77,3 +77,9 @@ def send_video_photo(sender, instance, created, **kwargs):
         if message:
             delete_message(message.message_id)
             message.delete()
+
+
+@receiver(post_delete, sender=BotMessageIDs)
+def delete_bot_message(sender, instance, **kwargs):
+    if instance.message_id:
+        delete_message(instance.message_id)

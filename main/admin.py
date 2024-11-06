@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import User, Group
 from django.db.models import Model
 from modeltranslation.admin import TranslationAdmin
-from .models import Category, Article, Video, Region, Ad, Staff
+from .models import Category, Article, Video, Region, Ad, Staff, Credentials
 
 admin.site.unregister([User, Group])
 
@@ -80,3 +80,28 @@ class StaffAdmin(TranslationAdmin):
     list_display = ('first_name', 'last_name', 'position', 'licence_no')
     search_fields = ('first_name', 'last_name', 'position', 'licence_no')
     list_filter = ('position',)
+
+
+@admin.register(Credentials)
+class CredentialsAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Contact Information', {
+            'fields': ('domain', 'phone', 'email', 'address')
+        }),
+        ('Social Media Links', {
+            'fields': ('instagram', 'telegram', 'youtube', 'facebook')
+        }),
+        ('Test Mode', {
+            'fields': ('is_test_mode', 'test_mode_info')
+        }),
+        ('Telegram Settings', {
+            'fields': ('botToken', 'channel_id')
+        }),
+    )
+    def has_add_permission(self, request):
+        if Credentials.objects.exists():
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return False
