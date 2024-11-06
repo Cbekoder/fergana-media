@@ -21,7 +21,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
 
     caption = f"""{title}\n\n{intro}\n
 <a href='https://fergana-media.vercel.app/news/{id}/?type=world'>Batafsil...</a>\n\n
-{f"#{region} " if region else ""}{' '.join(f"#{category}" for category in tuple(categories))}\n\n@ferganamedia"""
+@ferganamedia"""
 
     payload = {
         'chat_id': chat_id,
@@ -62,9 +62,9 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")
 
 def sendVideo(message_id, title, intro, cover, url, categories):
-    caption = f"""{title}\n\n{intro}\n
+    caption = f"""{title}\n\n{intro}
 <a href='{url}'>To'liq video</a>\n\n
-{' '.join(f"#{category}" for category in tuple(categories))}\n\n@ferganamedia"""
+@ferganamedia"""
 
     payload = {
         'chat_id': chat_id,
