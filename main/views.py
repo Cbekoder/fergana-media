@@ -64,10 +64,11 @@ class TopArticlesListAPIView(ListAPIView):
     #     return list(top_news) + list(other_news)[:40 - len(top_news)]
 
     def get_queryset(self):
-        last_10_days = timezone.now() - timedelta(days=10)
-        top_news = self.queryset.filter(news_of_the_day=True, created_at__gte=last_10_days).order_by('-id')
-        other_news = self.queryset.filter(news_of_the_day=False, created_at__gte=last_10_days).order_by('-views')
-        return list(top_news) + list(other_news)[:40 - len(top_news)]
+        # last_10_days = timezone.now() - timedelta(days=10)
+        # top_news = self.queryset.filter(news_of_the_day=True, created_at__gte=last_10_days).order_by('-id')
+        # other_news = self.queryset.filter(news_of_the_day=False, created_at__gte=last_10_days).order_by('-views')
+        # return list(top_news) + list(other_news)[:40 - len(top_news)]
+        return self.queryset.filter(news_of_the_day=True)
 
 
 

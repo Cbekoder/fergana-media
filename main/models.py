@@ -46,11 +46,9 @@ class Article(models.Model):
         verbose_name = _('Maqola')
         verbose_name_plural = _('Maqolalar')
 
-    def save(self, *args, **kwargs):
-        if self.news_of_the_day:
-            Article.objects.filter(news_of_the_day=True).update(news_of_the_day=False)
-
-        super(Article, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #
+    #     super(Article, self).save(*args, **kwargs)
 
 
 class Video(models.Model):
