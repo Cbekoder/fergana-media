@@ -19,8 +19,8 @@ def sendArticle(id, message_id, title, intro, image):
     resized_photo_path = os.path.abspath('resized.png')
     resize_image(photo_path, resized_photo_path)
 
-    caption = f"""{title}\n\n{intro}\n
-<a href='https://fergana-media.vercel.app/news/{id}/?type=world'>Batafsil...</a>\n\n
+    caption = f"""{title}\n\n{intro}
+<a href='https://fergana-media.vercel.app/news/{id}/?type=world'>Batafsil...</a>\n
 @ferganamedia"""
 
     payload = {
@@ -63,7 +63,7 @@ def sendArticle(id, message_id, title, intro, image):
 
 def sendVideo(message_id, title, intro, cover, url):
     caption = f"""{title}\n\n{intro}
-<a href='{url}'>To'liq video</a>\n\n
+<a href='{url}'>To'liq video</a>\n
 @ferganamedia"""
 
     payload = {
