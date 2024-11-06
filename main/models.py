@@ -38,7 +38,6 @@ class Article(models.Model):
     region = models.ForeignKey(Region, verbose_name=_('Joy'), on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
     to_send_bot = models.BooleanField(default=True, verbose_name=_("Telegram kanalga yuborish"))
-    message_id = models.IntegerField(null=True, blank=True, verbose_name=_("Telegram Message Id"))
 
     def __str__(self):
         return self.title
@@ -60,7 +59,6 @@ class Video(models.Model):
     cover = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_('Rasm'))
     url = models.URLField(verbose_name=_('Link'))
     to_send_bot = models.BooleanField(default=True, verbose_name=_("Telegram kanalga yuborish"))
-    message_id = models.IntegerField(null=True, blank=True, verbose_name=_("Telegram Message Id"))
 
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
@@ -71,6 +69,11 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+class BotMessageIDs(models.Model):
+    article = models.OneToOneField(Article, on_delete=models.CASCADE, null=True, unique=True, verbose_name=_('Article'))
+    video = models.OneToOneField(Video, on_delete=models.CASCADE, null=True, unique=True, verbose_name=_('Article'))
+    message_id = models.IntegerField(verbose_name=_("Telegram Message Id"))
 
 
 class Ad(models.Model):

@@ -75,6 +75,15 @@ class ArticleRetrieveAPIView(RetrieveAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        instance.views += 1
+        instance.save(update_fields=['views'])
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
 class VideoListAPIView(ListAPIView):
     queryset = Video.objects.all()

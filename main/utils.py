@@ -125,3 +125,16 @@ def sendVideo(message_id, title, intro, cover, url, categories):
         return response.json()
     else:
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")
+
+
+def delete_message(message_id):
+    telegram_url = f"https://api.telegram.org/bot{bot_token}/deleteMessage"
+    data = {
+        "chat_id": chat_id,
+        "message_id": message_id
+    }
+    response = requests.post(telegram_url, data=data)
+    if response.status_code == 200:
+        return {'status': 200, 'detail': "Message deleted successfully!"}
+    else:
+        return {'status': response.status_code, 'detail': response.text}

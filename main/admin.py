@@ -43,7 +43,7 @@ class ArticleAdmin(CustomTranslationAdmin):
     list_filter = ('publish',)
     date_hierarchy = 'created_at'
     ordering = ('title', 'views', 'created_at')
-    readonly_fields = ('message_id', 'created_at')
+    readonly_fields = ['created_at']
 
     # class Media:
     #     js = (
@@ -63,7 +63,7 @@ class VideoAdmin(CustomTranslationAdmin):
 
     search_fields = ('title', 'categories__title')
     ordering = ('title', 'created_at')
-    readonly_fields = ['message_id', 'created_at']
+    readonly_fields = ['created_at']
 
 # @admin.register(Ad)
 # class AdAdmin(CustomTranslationAdmin):
