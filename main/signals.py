@@ -52,8 +52,8 @@ def send_video_photo(sender, instance, created, **kwargs):
         cover = instance.cover.path
     else:
         cover = None
-    if instance.to_send_bot and instance.publish:
-        if message.message_id is None:
+    if instance.to_send_bot:
+        if message is None:
             response = sendVideo(
                 None,
                 instance.title,
