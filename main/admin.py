@@ -5,7 +5,7 @@ from django.db.models import Model
 from modeltranslation.admin import TranslationAdmin
 from .models import Category, Article, Video, Region, Ad, Staff, Credentials
 
-admin.site.unregister([User, Group])
+admin.site.unregister([Group])
 
 class CustomTranslationAdmin(TranslationAdmin):
     def get_queryset(self, request):
