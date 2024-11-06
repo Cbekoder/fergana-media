@@ -51,7 +51,8 @@ urlpatterns = [
     path('ads/', AdListAPIView.as_view(), name='ad-list'),
     path('ads/<int:pk>/', AdRetrieveAPIView.as_view(), name='ad-retrieve'),
     path('staff/', StaffListAPIView.as_view(), name='staff-list'),
-    path('staff/photos/', StaffPhotoListAPIView.as_view(), name='staff-photo-list')
+    path('staff/photos/', StaffPhotoListAPIView.as_view(), name='staff-photo-list'),
+    path('credentials/', CredentialsApiView.as_view(), name='credentials-list'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [

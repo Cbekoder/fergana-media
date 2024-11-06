@@ -36,3 +36,9 @@ class StaffPhotoSerializer(serializers.ModelSerializer):
         model = Staff
         fields = ['photo']
 
+
+class CredentialsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Credentials
+        fields = ['is_test_mode', 'test_mode_info', 'phone', "email", "domain", "instagram", "telegram", "youtube", "facebook", "address"]
+

@@ -8,9 +8,11 @@ from django.utils import timezone
 from datetime import timedelta
 
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .filters import ArticleFilter, VideoFilter
 from .serializers import *
+from .utils import credentials
 
 
 class CategoryListAPIView(ListAPIView):
@@ -124,3 +126,9 @@ class StaffPhotoListAPIView(ListAPIView):
         queryset = self.get_queryset()
         photos = [staff.photo.url for staff in queryset if staff.photo]
         return Response(photos)
+
+class CredentialsApiView(APIView):
+    def get(self, request):
+        credential = Credentials.objects.last()
+        serializer = CredentialsSerializer(credential)
+        return Response(serializer.data)
