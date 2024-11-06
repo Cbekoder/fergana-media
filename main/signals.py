@@ -13,10 +13,6 @@ def send_article_photo(sender, instance, **kwargs):
         message = messages_list[0]
     else:
         message = None
-    if instance.region:
-        region = instance.region.name
-    else:
-        region = None
     if instance.to_send_bot and instance.publish:
         if message:
             sendArticle(
@@ -25,9 +21,6 @@ def send_article_photo(sender, instance, **kwargs):
                 instance.title,
                 instance.intro,
                 instance.image.path,
-                instance.categories.values_list('title', flat=True),
-                region,
-                instance.news_of_the_day,
             )
         else:
             response = sendArticle(
@@ -36,9 +29,6 @@ def send_article_photo(sender, instance, **kwargs):
                 instance.title,
                 instance.intro,
                 instance.image.path,
-                instance.categories.values_list('title', flat=True),
-                region,
-                instance.news_of_the_day,
             )
             if response:
                 BotMessageIDs.objects.create(article = instance, message_id=response['result']['message_id'])
@@ -69,8 +59,7 @@ def send_video_photo(sender, instance, created, **kwargs):
                 instance.title,
                 instance.intro,
                 cover,
-                instance.url,
-                instance.categories.values_list('title', flat=True)
+                instance.url
             )
             if response:
                 BotMessageIDs.objects.create(video = instance, message_id=response['result']['message_id'])
@@ -82,8 +71,7 @@ def send_video_photo(sender, instance, created, **kwargs):
                 instance.title,
                 instance.intro,
                 cover,
-                instance.url,
-                instance.categories.values_list('title', flat=True)
+                instance.url
             )
     else:
         if message.message_id:

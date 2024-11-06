@@ -14,7 +14,7 @@ def resize_image(image_path, output_path, max_size=(1024, 1024)):
         img.save(output_path)
 
 
-def sendArticle(id, message_id, title, intro, image, categories, region, news_of_the_day):
+def sendArticle(id, message_id, title, intro, image):
     photo_path = os.path.abspath(image)
     resized_photo_path = os.path.abspath('resized.png')
     resize_image(photo_path, resized_photo_path)
@@ -61,7 +61,7 @@ def sendArticle(id, message_id, title, intro, image, categories, region, news_of
     else:
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")
 
-def sendVideo(message_id, title, intro, cover, url, categories):
+def sendVideo(message_id, title, intro, cover, url):
     caption = f"""{title}\n\n{intro}
 <a href='{url}'>To'liq video</a>\n\n
 @ferganamedia"""
