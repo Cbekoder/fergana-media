@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.authentication import BasicAuthentication
 from django.conf.urls.i18n import set_language
 
 from rest_framework import permissions
@@ -27,7 +28,8 @@ schema_view = get_schema_view(
         license=openapi.License(name="BSD License"),
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=[permissions.IsAuthenticated],
+    authentication_classes=[BasicAuthentication],
 )
 
 urlpatterns = [
