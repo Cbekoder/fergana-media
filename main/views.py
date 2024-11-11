@@ -1,6 +1,9 @@
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
@@ -132,3 +135,12 @@ class CredentialsApiView(APIView):
         credential = Credentials.objects.last()
         serializer = CredentialsSerializer(credential)
         return Response(serializer.data)
+
+
+class LogoutView(APIView):
+    def get(self, request):
+        logout(request)
+        request.session.flush()
+        response = redirect('/')
+        response.delete_cookie("Authorization")
+        return response

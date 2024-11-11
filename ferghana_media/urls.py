@@ -15,7 +15,6 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
 from main.views import *
 
 schema_view = get_schema_view(
@@ -35,14 +34,13 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 
-    # Swagger
     path('', schema_view.with_ui('swagger', cache_timeout=0)),
 
     path('set_language/', set_language, name='set_language'),
 
-    # main
     path('categories/', CategoryListAPIView.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryRetrieveAPIView.as_view(), name='category-retrieve'),
     path('articles/', ArticleListAPIView.as_view(), name='article-list'),
