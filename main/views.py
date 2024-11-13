@@ -140,7 +140,6 @@ class CredentialsApiView(APIView):
 class LogoutView(APIView):
     def get(self, request):
         logout(request)
-        request.session.flush()
         response = redirect('/')
         response.delete_cookie("Authorization")
         return response

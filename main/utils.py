@@ -22,7 +22,7 @@ def sendArticle(id, message_id, title, intro, image):
     resized_photo_path = os.path.abspath('resized.png')
     resize_image(photo_path, resized_photo_path)
 
-    caption = f"""{title}\n\n{intro}
+    caption = f"""{title}\n\n{intro}...
 <a href='https://{domain}/news/{id}/?type=world'>Batafsil...</a>\n
 {tgChannel}"""
 

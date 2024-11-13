@@ -19,7 +19,7 @@ def send_article_photo(sender, instance, **kwargs):
                 instance.id,
                 message.message_id,
                 instance.title,
-                instance.intro,
+                instance.intro[:450],
                 instance.image.path,
             )
         else:
