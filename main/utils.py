@@ -4,12 +4,6 @@ from PIL import Image
 import os
 from .models import Credentials
 
-credentials = Credentials.objects.last()
-if credentials:
-    bot_token = credentials.botToken
-    chat_id = credentials.channel_id
-    domain = credentials.domain
-    tgChannel = credentials.telegram
 
 def resize_image(image_path, output_path, max_size=(1024, 1024)):
     with Image.open(image_path) as img:
@@ -18,6 +12,13 @@ def resize_image(image_path, output_path, max_size=(1024, 1024)):
 
 
 def sendArticle(id, message_id, title, intro, image):
+    credentials = Credentials.objects.last()
+    if credentials:
+        bot_token = credentials.botToken
+        chat_id = credentials.channel_id
+        domain = credentials.domain
+        tgChannel = credentials.telegram
+
     photo_path = os.path.abspath(image)
     resized_photo_path = os.path.abspath('resized.png')
     resize_image(photo_path, resized_photo_path)
@@ -65,6 +66,13 @@ def sendArticle(id, message_id, title, intro, image):
         print(f"Failed to send photo. Error: {response.status_code} - {response.text}")
 
 def sendVideo(message_id, title, intro, cover, url):
+    credentials = Credentials.objects.last()
+    if credentials:
+        bot_token = credentials.botToken
+        chat_id = credentials.channel_id
+        domain = credentials.domain
+        tgChannel = credentials.telegram
+
     caption = f"""{title}\n\n{intro}
 <a href='{url}'>To'liq video</a>\n
 @ferganamedia"""
@@ -131,6 +139,13 @@ def sendVideo(message_id, title, intro, cover, url):
 
 
 def delete_message(message_id):
+    credentials = Credentials.objects.last()
+    if credentials:
+        bot_token = credentials.botToken
+        chat_id = credentials.channel_id
+        domain = credentials.domain
+        tgChannel = credentials.telegram
+
     telegram_url = f"https://api.telegram.org/bot{bot_token}/deleteMessage"
     data = {
         "chat_id": chat_id,

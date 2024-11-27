@@ -3,19 +3,14 @@ from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-
-from django.utils import timezone
-from datetime import timedelta
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .filters import ArticleFilter, VideoFilter
 from .serializers import *
-from .utils import credentials
 
 
 class CategoryListAPIView(ListAPIView):
