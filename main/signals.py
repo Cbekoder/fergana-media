@@ -50,14 +50,20 @@ def send_video_photo(sender, instance, created, **kwargs):
         cover = instance.cover.path
     else:
         cover = None
+    if instance.video:
+        video = instance.video.path
+    else:
+        video = None
     if instance.to_send_bot:
         if message is None:
             response = sendVideo(
+                instance.id,
                 None,
                 instance.title,
                 instance.intro,
                 cover,
-                instance.url
+                instance.url,
+                video
             )
             if response:
                 BotMessageIDs.objects.create(video = instance, message_id=response['result']['message_id'])
@@ -65,11 +71,13 @@ def send_video_photo(sender, instance, created, **kwargs):
                 print("error in bot")
         else:
             sendVideo(
+                instance.id,
                 message.message_id,
                 instance.title,
                 instance.intro,
                 cover,
-                instance.url
+                instance.url,
+                video
             )
     else:
         if message:

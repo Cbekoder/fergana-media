@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import User, Group
-from django.db.models import Model
+from django.db.models import Model, TextField
 from modeltranslation.admin import TranslationAdmin
+from ckeditor.widgets import CKEditorWidget
 from .models import Category, Article, Video, Region, Ad, Staff, Credentials
+
 
 admin.site.unregister([Group])
 
@@ -44,6 +46,9 @@ class ArticleAdmin(CustomTranslationAdmin):
     date_hierarchy = 'created_at'
     ordering = ('title', 'views', 'created_at')
     readonly_fields = ['created_at', 'views']
+    formfield_overrides = {
+        TextField: {'widget': CKEditorWidget},
+    }
 
     # class Media:
     #     js = (
@@ -64,6 +69,9 @@ class VideoAdmin(CustomTranslationAdmin):
     search_fields = ('title', 'categories__title')
     ordering = ('title', 'created_at')
     readonly_fields = ['created_at']
+    formfield_overrides = {
+        TextField: {'widget': CKEditorWidget},
+    }
 
 # @admin.register(Ad)
 # class AdAdmin(CustomTranslationAdmin):

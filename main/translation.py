@@ -11,7 +11,7 @@ class ArticleTranslationOptions(TranslationOptions):
 
 @register(Video)
 class VideoTranslationOptions(TranslationOptions):
-    fields = ('title', 'intro',)
+    fields = ('title', 'intro', 'content')
 
 @register(Region)
 class RegionTranslationOptions(TranslationOptions):
