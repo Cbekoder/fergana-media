@@ -48,9 +48,6 @@ class Article(models.Model):
         verbose_name = _('Maqola')
         verbose_name_plural = _('Maqolalar')
 
-    # def save(self, *args, **kwargs):
-    #
-    #     super(Article, self).save(*args, **kwargs)
 
 
 class Video(models.Model):
