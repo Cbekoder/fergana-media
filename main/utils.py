@@ -4,6 +4,11 @@ from PIL import Image
 import os
 import bleach
 from .models import Credentials
+from uuid import uuid4
+
+def custom_filename_generator(filename, request):
+    extension = filename.split('.')[-1]
+    return f"{uuid4()}.{extension}"
 
 def sanitize_for_telegram(content):
     allowed_tags = ['b', 'i', 'u', 's', 'a', 'code', 'pre']

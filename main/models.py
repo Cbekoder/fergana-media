@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
 
@@ -29,8 +30,8 @@ class Region(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))
     image = models.ImageField(upload_to='images/', verbose_name=_('Rasm'))
-    intro = RichTextField(verbose_name=_('Kirish matni'))
-    content = RichTextField(verbose_name=_('Batafsil'))
+    intro = RichTextField(config_name='intro', verbose_name=_('Kirish matni'))
+    content = RichTextUploadingField(verbose_name=_('Batafsil'))
     views = models.IntegerField(default=0, verbose_name=_("Ko'rish soni"))
     publish = models.BooleanField(default=True, verbose_name=_('Chop etish'))
     news_of_the_day = models.BooleanField(default=False, verbose_name=_('Kun yangiligi'))
@@ -54,8 +55,8 @@ class Article(models.Model):
 
 class Video(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))
-    intro = RichTextField(verbose_name=_('Kirish matni'))
-    content = RichTextField(verbose_name=_('Batafsil'), null=True, blank=True)
+    intro = RichTextField(config_name='intro', verbose_name=_('Kirish matni'))
+    content = RichTextUploadingField(verbose_name=_('Batafsil'), null=True, blank=True)
     cover = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_('Rasm'))
     url = models.URLField(verbose_name=_('Link'), blank=True, null=True)
     video = models.FileField(upload_to='videos/', verbose_name=_('Video'), blank=True, null=True)

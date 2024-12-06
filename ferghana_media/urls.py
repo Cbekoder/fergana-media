@@ -2,19 +2,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.authentication import BasicAuthentication
 from django.conf.urls.i18n import set_language
 
+from rest_framework.authentication import BasicAuthentication
 from rest_framework import permissions
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from django.conf.urls.i18n import i18n_patterns
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from ckeditor_uploader import views as ckeditor_views
+
 from main.views import *
 
 schema_view = get_schema_view(
@@ -36,7 +37,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('ckeditor/upload/', ckeditor_views.upload, name='ckeditor_upload'),
+    path('ckeditor/browse/', ckeditor_views.browse, name='ckeditor_browse'),
 
     path('', schema_view.with_ui('swagger', cache_timeout=0)),
 
