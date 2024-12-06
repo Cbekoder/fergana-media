@@ -86,10 +86,12 @@ def sendVideo(id, message_id, title, intro, cover, url, video):
     sanitized_content = sanitize_for_telegram(intro)
 
     caption = f"""{title}\n\n{sanitized_content}
-<a href='https://{domain}/news/{id}/?type=world'>Batafsil...</a>\n
+<a href='https://{domain}/video/{id}/?type=video'>Batafsil...</a>\n
 """
     if url:
         caption += f"<a href='{url}'>Video...</a>\n\n{tgChannel}"
+    else:
+        caption += f"\n{tgChannel}"
 
     payload = {
         'chat_id': chat_id,
