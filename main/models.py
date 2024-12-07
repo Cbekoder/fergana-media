@@ -58,6 +58,7 @@ class Video(models.Model):
     url = models.URLField(verbose_name=_('Link'), blank=True, null=True)
     video = models.FileField(upload_to='videos/', verbose_name=_('Video'), blank=True, null=True)
     to_send_bot = models.BooleanField(default=True, verbose_name=_("Telegram kanalga yuborish"))
+    views = models.IntegerField(default=0, verbose_name=_("Ko'rish soni"))
 
     categories = models.ManyToManyField(Category, verbose_name=_('Kategoriyalar'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Qo'shilgan sana"))
