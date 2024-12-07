@@ -138,10 +138,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join(['image2']),
         'filebrowserUploadUrl': '/ckeditor/upload/',
         'filebrowserBrowseUrl': '/ckeditor/browse/',
-    },
-    'intro': {
-        'toolbar': 'Basic',
-    },
+    }
 }
 
 MIDDLEWARE = [

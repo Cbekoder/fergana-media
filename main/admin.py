@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django import forms
 from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import User, Group
 from django.db.models import Model, TextField
 from modeltranslation.admin import TranslationAdmin
 from ckeditor.widgets import CKEditorWidget
 from .models import Category, Article, Video, Region, Ad, Staff, Credentials
+from django.utils import translation
 
 
 admin.site.unregister([Group])
@@ -16,9 +18,13 @@ class CustomTranslationAdmin(TranslationAdmin):
         return super().get_queryset(request)
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
-        from django.utils import translation
         translation.activate('uz_Latn')
+        if db_field.name == "content":
+            kwargs['widget'] = CKEditorWidget()
+        elif db_field.name == "intro":
+            kwargs['widget'] = forms.Textarea()
         return super().formfield_for_dbfield(db_field, request, **kwargs)
+
 
 
 @admin.register(Category)
@@ -46,19 +52,7 @@ class ArticleAdmin(CustomTranslationAdmin):
     date_hierarchy = 'created_at'
     ordering = ('title', 'views', 'created_at')
     readonly_fields = ['created_at', 'views']
-    formfield_overrides = {
-        TextField: {'widget': CKEditorWidget},
-    }
 
-    # class Media:
-    #     js = (
-    #         'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-    #         'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-    #         'modeltranslation/js/tabbed_translation_fields.js',
-    #     )
-    #     css = {
-    #         'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-    #     }
 
 @admin.register(Video)
 class VideoAdmin(CustomTranslationAdmin):
